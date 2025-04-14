@@ -12,7 +12,6 @@ function stepperHandle = initialize(motorID, motorSpeed)
     calllib('phidget21', 'CPhidget_open', stepperHandle, -1);
 
     if calllib('phidget21', 'CPhidget_waitForAttachment', stepperHandle, 2500) == 0
-        disp('Stepper Recognized');
 
         % Set motor parameters
         calllib('phidget21', 'CPhidgetStepper_setVelocityLimit', stepperHandle, 0, 20536);
@@ -21,7 +20,6 @@ function stepperHandle = initialize(motorID, motorSpeed)
 
         % Engage the motor
         calllib('phidget21', 'CPhidgetStepper_setEngaged', stepperHandle, 0, 1);
-        disp('Stepper Engaged');
     else
         error('Could Not Open Stepper');
     end

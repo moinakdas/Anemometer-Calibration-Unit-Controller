@@ -1,0 +1,109 @@
+%add subdirectories & load libraries
+clear all; %#ok<CLALL>
+clc;
+
+addpath("phidget_libs")
+addpath("user_functions")
+loadphidget21;
+
+% Global vars
+yawConn = false; %true if yaw motor is initialized successfully
+pitchConn = false; %true if pitch motor is initialized successfully
+gateConn = false; %true if gate motor is initialized successfully
+
+% Pull data from JSON file
+yawID = 753483;
+pitchID = 753327;
+gateID = 753486;
+
+disp([yawConn, pitchConn, gateConn]);
+
+% Initialize all motors & Interface kit
+try
+    yawHandle = initialize(yawID);
+    yawConn = true;
+    disp("Yaw motor initialization SUCCESSFUL!");
+catch ME
+    disp("Yaw motor initialization FAILED!");
+end
+fprintf("\n");
+
+try
+    pitchHandle = initialize(pitchID);
+    pitchConn = true;
+    disp("Pitch motor initialization SUCCESSFUL!");
+catch ME
+    disp("Pitch motor initialization FAILED!");
+end
+fprintf("\n");
+
+try
+    gateHandle = initialize(gateID, 11000);
+    gateConn = true;
+    disp("Gate motor initialization SUCCESSFUL!");
+catch ME
+    disp("Gate motor initialization FAILED!");
+end
+fprintf("\n");
+
+disp([yawConn, pitchConn, gateConn]);
+try
+    % Zero out motors, define global vars
+    
+    % Move all motors
+    %moveto(pitchHandle, 0);
+    %moveto(gateHandle, 20000);
+    %moveto(yawHandle, 20000);
+    %pause(1)
+    %moveto(yawHandle, -20000);
+    %pause(1)
+    %moveto(yawHandle, 0);
+    % Execute movements from list + data collection/output
+
+    %Cleanup
+    disp([yawConn, pitchConn, gateConn]);
+    if yawConn
+        cleanup(yawHandle);
+        disp("Yaw motor disengagement SUCCESS!");
+        yawConn = false;
+    end
+    if pitchConn
+        cleanup(pitchHandle);
+        disp("Pitch motor disengagement SUCCESS!");
+        pitchConn = false;
+    end
+    if gateConn
+        cleanup(gateHandle);
+        disp("Gate motor disengagement SUCCESS!");
+        gateConn = false;
+    end
+
+catch ME
+    disp([yawConn, pitchConn, gateConn]);
+    % Cleanup on error
+    fprintf('Error in %s at line %d: %s\n', ...
+        ME.stack(1).name, ME.stack(1).line, ME.message);
+
+    if yawConn
+        cleanup(yawHandle);
+        disp("Yaw motor disengagement SUCCESS!");
+        yawConn = false;
+    end
+
+    if pitchConn
+        cleanup(pitchHandle);
+        disp("Pitch motor disengagement SUCCESS!");
+        pitchConn = false;
+    end
+
+    if gateConn
+        cleanup(gateHandle);
+        disp("Gate motor disengagement SUCCESS!");
+        gateConn = false;
+    end
+end
+
+
+%26400 = touching wall next to hole
+%4800 = covering hole middle
+%0 = touching opposite wall
