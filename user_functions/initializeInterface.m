@@ -3,8 +3,6 @@ function interfaceHandle = initializeInterface(interfaceID)
         deviceID = -1;  % Default value to open any device
     end
 
-    disp(['Initializing Phidget InterfaceKit with ID: ', num2str(interfaceID)]);
-
     % Create a handle for the InterfaceKit
     interfaceHandle = libpointer('int32Ptr');
     calllib('phidget21', 'CPhidgetInterfaceKit_create', interfaceHandle);

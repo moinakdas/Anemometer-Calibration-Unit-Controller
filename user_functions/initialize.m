@@ -2,9 +2,7 @@ function stepperHandle = initialize(motorID, motorSpeed)
     if nargin < 2  % If 'b' is not provided
         motorSpeed = 20536;    % Assign default value
     end
-
-    disp(['Initializing Stepper Motor with ID: ', num2str(motorID)]);
-
+    
     stepperHandle = libpointer('int32Ptr');
     calllib('phidget21', 'CPhidgetStepper_create', stepperHandle);
 
