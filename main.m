@@ -2,8 +2,9 @@
 clear all; %#ok<CLALL>
 clc;
 
-addpath("phidget_libs")
-addpath("user_functions")
+addpath("lib");
+addpath("core");
+addpath("wrappers");
 loadphidget21;
 
 % Pull data from JSON file
@@ -19,27 +20,22 @@ try
     % Zero out motors, define global vars
     
     % Move all motors
-    % moveto(yawHandle, 20000)
-    % moveto(pitchHandle, 20000)
-    % moveto(gateHandle, 20000)
-    % pause(1)
-    % moveto(yawHandle, -20000)
-    % moveto(pitchHandle, -20000)
-    % moveto(gateHandle, -20000)
-    % pause(1)
-    % moveto(yawHandle, 0)
-    % moveto(pitchHandle, 0)
-    % moveto(gateHandle, 0)
-    % pause(1)
+    moveto(yawHandle, 00)
+    moveto(pitchHandle, 000)
+    pause(1)
+    %moveto(pitchHandle, 0)
+    pause(1)
     % Execute movements from list + data collection/output
 
     %Cleanup
+    fprintf('\n');
     cleanup_wrapper(yawConn,pitchConn,gateConn,interfaceConn,yawHandle,pitchHandle,gateHandle,interfaceHandle);
 
 catch ME
     % Cleanup on error
     fprintf('Error in %s at line %d: %s\n', ...
         ME.stack(1).name, ME.stack(1).line, ME.message);
+    fprintf('\n');
     cleanup_wrapper(yawConn,pitchConn,gateConn,interfaceConn,yawHandle,pitchHandle,gateHandle,interfaceHandle);
 end
 
