@@ -1,10 +1,10 @@
 %add subdirectories & load libraries
-clear all; %#ok<CLALL>
+clear all;
 clc;
 
-addpath("lib");
-addpath("core");
-addpath("wrappers");
+addpath('lib');
+addpath('core');
+addpath('wrappers');
 loadphidget21;
 
 % Pull data from JSON file
@@ -32,18 +32,43 @@ pitchStepMap('max') = -1;
 
 % Initialize all phidget handles and connection status variables
 [interfaceHandle,yawHandle,pitchHandle,gateHandle,interfaceConn,yawConn,pitchConn,gateConn] = init_wrapper(interfaceID,yawID,pitchID,gateID);
-fprintf('\n');
-try
-    %Zero motors
-    yawZeroStep = zeroMotor(interfaceHandle, yawHandle,2000,-1000,0);
-    fprintf("Yaw motor zeroed at %d\n", yawZeroStep);
-    gateZeroStep = zeroMotor(interfaceHandle, gateHandle,500,-250,2);
-    fprintf("Gate motor zeroed at %d\n", gateZeroStep);
-    % Execute movements from list + data collection/output
 
-    %Return to zero
-    moveto(yawHandle, yawZeroStep - 52000);
+if yawConn && pitchConn && gateConn && interfaceConn
+    fprintf('\n[INIT SUCCESS] All components initialized successfully, proceeding to zero motors\n\n')
+    drawnow;
+else
+    fprintf('[INIT FAIL]')
+    drawnow;
+end
+
+try
+    %Work with this DAQ
+    
+    %Zero motors
+    
+    pitchZeroStep = zeroMotor(interfaceHandle, pitchHandle, 2000, -500,1);
+    fprintf('Pitch motor zeroed at %d\n', pitchZeroStep);
+    drawnow;
+    moveto(pitchHandle, pitchZeroStep - 30000);
+
+    yawZeroStep = zeroMotor(interfaceHandle, yawHandle,2000,-1000,0);
+    fprintf('Yaw motor zeroed at %d\n', yawZeroStep);
+    drawnow;
+    moveto(yawHandle, yawZeroStep - 40000);
+
+    gateZeroStep = zeroMotor(interfaceHandle, gateHandle,500,-250,2);
+    fprintf('Gate motor zeroed at %d\n', gateZeroStep);
+    drawnow;
     moveto(gateHandle, gateZeroStep - 12000);
+
+    fprintf('[LOCALIZATION SUCCESS]\n');
+    drawnow;
+
+    % Execute movements from list + data collection/output
+    % fully closed gate = -19000
+
+    % Return to zero
+
     % Cleanup
     fprintf('\n');
     cleanup_wrapper(yawConn,pitchConn,gateConn,interfaceConn,yawHandle,pitchHandle,gateHandle,interfaceHandle);
