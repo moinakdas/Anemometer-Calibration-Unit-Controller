@@ -1,11 +1,13 @@
-function [interfaceHandle,yawHandle,pitchHandle,gateHandle,interfaceConn,yawConn,pitchConn,gateConn] = init_wrapper(interfaceID,yawID,pitchID,gateID)
+function [interfaceHandle,yawHandle,pitchHandle,gateHandle,daqHandle,interfaceConn,yawConn,pitchConn,gateConn,daqConn] = init_wrapper(interfaceID,yawID,pitchID,gateID)
 % add comments my ass just figure it out
 % Initialize all motors & Interface kit
     interfaceHandle = [];
     yawHandle = [];
     pitchHandle = [];
     gateHandle = [];
+    daqHandle = [];
 
+    daqConn = false;
     interfaceConn = false;
     yawConn = false;
     pitchConn = false;
@@ -14,40 +16,51 @@ function [interfaceHandle,yawHandle,pitchHandle,gateHandle,interfaceConn,yawConn
     try
         interfaceHandle = initializeInterface(interfaceID); % INTERFACE INIT
         interfaceConn = true;                               % INTERFACE INIT
-        disp("Interface initialization SUCCESS!");          % INTERFACE INIT
-        drawnow;
+        fprintf('Interface initialization SUCCESS!\n');       % INTERFACE INIT
+        drawnow;                                            % INTERFACE INIT
     catch ME                                                % INTERFACE INIT
-        disp("Interface initialization FAILED!");           % INTERFACE INIT
-        drawnow;
+        fprintf('Interface initialization FAILED!\n');        % INTERFACE INIT
+        drawnow;                                            % INTERFACE INIT
     end                                                     % INTERFACE INIT
     
     try
         yawHandle = initialize(yawID);                      % YAW MOTOR INIT
         yawConn = true;                                     % YAW MOTOR INIT
-        disp("Yaw motor initialization SUCCESS!");          % YAW MOTOR INIT
-        drawnow;
+        fprintf('Yaw motor initialization SUCCESS!\n');       % YAW MOTOR INIT
+        drawnow;                                            % YAW MOTOR INIT
     catch ME                                                % YAW MOTOR INIT
-        disp("Yaw motor initialization FAILED!");           % YAW MOTOR INIT
-        drawnow;
+        fprintf('Yaw motor initialization FAILED!\n');        % YAW MOTOR INIT
+        drawnow;                                            % YAW MOTOR INIT
     end                                                     % YAW MOTOR INIT
     
     try
         pitchHandle = initialize(pitchID);                  % PITCH MOTOR INIT
         pitchConn = true;                                   % PITCH MOTOR INIT
-        disp("Pitch motor initialization SUCCESS!");        % PITCH MOTOR INIT
-        drawnow;
+        fprintf('Pitch motor initialization SUCCESS!\n');     % PITCH MOTOR INIT
+        drawnow;                                            % PITCH MOTOR INIT
     catch ME                                                % PITCH MOTOR INIT
-        disp("Pitch motor initialization FAILED!");         % PITCH MOTOR INIT
-        drawnow;
+        fprintf('Pitch motor initialization FAILED!\n');      % PITCH MOTOR INIT
+        drawnow;                                            % PITCH MOTOR INIT
     end                                                     % PITCH MOTOR INIT
     
     try
         gateHandle = initialize(gateID, 11000);             % GATE MOTOR INIT
         gateConn = true;                                    % GATE MOTOR INIT
-        disp("Gate motor initialization SUCCESS!");         % GATE MOTOR INIT
-        drawnow;
+        fprintf('Gate motor initialization SUCCESS!\n');      % GATE MOTOR INIT
+        drawnow;                                            % GATE MOTOR INIT
     catch ME                                                % GATE MOTOR INIT
-        disp("Gate motor initialization FAILED!");          % GATE MOTOR INIT
-        drawnow;
+        fprintf('Gate motor initialization FAILED!\n');       % GATE MOTOR INIT
+        drawnow;                                            % GATE MOTOR INIT
     end                                                     % GATE MOTOR INIT
+
+    try
+        daqHandle = initializeDAQ();                          % DAQ INIT
+        daqConn = true;                                       % DAQ INIT
+        fprintf('Data Acquisition initialization SUCCESS!\n');  % DAQ INIT
+        drawnow;                                              % DAQ INIT
+    catch ME                                                  % DAQ INIT
+        fprintf('Data Acquisition initialization FAILED!\n');
+        fprintf('\nWARNING: PID control will be turned off for this session\n');   % DAQ INIT
+        drawnow;                                              % DAQ INIT
+    end                                                       % DAQ INIT
 end
