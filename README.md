@@ -97,10 +97,14 @@ All required motor and DAQ handles are created using `init_wrapper.m`. Connectio
 ### 2. Zeroing
 Each motor is zeroed using limit switches via `zeroMotor_wrapper.m`. Zero positions are stored for reference during operation.
 
-### Configuration Execution
-`runConfigurationSet.m` iterates over a matrix of [Yaw, Pitch, Velocity] configurations. Motors move to specified orientations and airflow velocity is achieved using PID-controlled gate positioning.
+### 3. Configuration Execution
+`runConfigurationSet.m` iterates over a matrix of [Yaw, Pitch, Velocity] configurations. You may change these configurations as desired. Motors move to specified orientations and airflow velocity is achieved using PID-controlled gate positioning.
 
-### Cleanup
+### 4. Cleanup
 All motors are disengaged and handles released using `cleanup_wrapper.m`, even in the case of failure. Note that ctrl-Cing out of a running process will not disengage the motors properly, and will result in unexpected operation. In this case, restart MATLAB and clear cache.
 
+## Future Work
+
+- Implementation of airflow temperature control via PID control of Peltier Chips.
+- Rewrite this in anything but MATLAB
 
