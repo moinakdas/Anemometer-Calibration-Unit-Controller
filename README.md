@@ -118,7 +118,7 @@ For operation, you may modify the main.m script by changing the configuration se
 | `runConfigurationSet(configSet, holdTime, ...)` | Executes a sequence of yaw, pitch, and velocity configurations. |
 | `zeroMotor_wrapper(...)` | Zeroes all motors (yaw, pitch, gate) using limit switches. |
 
-## Successful Operation Video Explanation
+## 🎥 [Watch Demo Video](utils/demo_video.mp4)
 
 ## Future Work
 
