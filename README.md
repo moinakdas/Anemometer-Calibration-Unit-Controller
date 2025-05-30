@@ -12,15 +12,15 @@ Hot-wire and cold-wire Anemometers are utilized to obtain accurate readings of f
 
 1. Ensure that the correct version of MATLAB is installed on your system. As of May 2025, this code runs on MATLAB 2023b (64-bit Windows 11).
 
-2. Install the MATLAB Support for MiniGW-w64 C/C++ Compiler from the Add-On Explorer page.
+2. Install the **MATLAB Support for MiniGW-w64 C/C++ Compiler** from the Add-On Explorer page.
 
-3. Install the MATLAB Data Acquisition Toolbox from the Add-On Explorer page.
+3. Install the **MATLAB Data Acquisition Toolbox** from the Add-On Explorer page.
 
-4. Install the Data Acquisition Toolbox Support Package for National Instruments from the Add-On Explorer page.
+4. Install the **Data Acquisition Toolbox Support Package for National Instruments** from the Add-On Explorer page.
    
-5. Download the *DT-Open Layers for .NET* from Digilent, available [here](https://digilent.com/reference/software/openlayers/start)
+5. Download the **DT-Open Layers for .NET** from Digilent, available [here](https://digilent.com/reference/software/openlayers/start)
 
-6. Download the *Data Translation DAQ Adaptor for MATLAB®* from Digilent, available [here](https://digilent.com/reference/software/start):
+6. Download the **Data Translation DAQ Adaptor for MATLAB®** from Digilent, available [here](https://digilent.com/reference/software/start):
   
     This will download a .mltb file, which you need to install using the MATLAB Add-On manager.
    
