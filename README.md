@@ -3,6 +3,48 @@
 This MATLAB library serves as the controller for the Anemometer Calibration Unit developed under Dr. Spencer Zimmerman at Stony Brook University. The unit is designed to direct airflow via a nozzle at a specified pitch angle, yaw angle, and airflow rate, controllable via the included script. It is designed to work with genuine Phidgets™ stepper motors/controllers, Phidgets™ digital interface, and a DT9834-BNC Data Acquisition Unit. 
 
 
+## Prerequisites
+
+### Data Translation DAQ Adaptor for MATLAB
+
+Before running the code, you must download the *Data Translation DAQ Adaptor for MATLAB®* from Digilent, available here:
+
+https://digilent.com/reference/software/start
+
+This will download a .mltb file, which you need to install 
+
+### 
+
+## Installation
+
+To install and run this repository locally:
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/anemometer-calibration-unit.git
+cd anemometer-calibration-unit
+```
+Then, launch MATLAB and set the current filepath.
+```python
+addpath(genpath(pwd));
+savepath;
+```
+Finally, run the main.m script
+```
+main
+```
+
+
+
+
+
+
+
+
+
+
+
+
 ## How It Works
 
 ### Initialization
@@ -35,21 +77,3 @@ This MATLAB library serves as the controller for the Anemometer Calibration Unit
 - Used for interpolation-based control in `vel_toGateStep.m` and `voltToVel.m`.
 
 ---
-
-## Installation
-
-To install and run this repository locally:
-
-```bash
-# Clone the repository
-git clone https://github.com/your-username/anemometer-calibration-unit.git
-cd anemometer-calibration-unit
-
-# Launch MATLAB and set path
-# In MATLAB Command Window:
-addpath(genpath(pwd));
-savepath;
-
-# Run the main script
-main
-
