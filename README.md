@@ -1,38 +1,7 @@
-# Anemometer Calibration Unit - MATLAB Control System
+# Anemometer Calibration Unit - MATLAB Control Script
 
-This MATLAB-based control system manages a custom-built anemometer calibration unit developed under Dr. Spencer Zimmerman at Stony Brook University.
----
+This MATLAB library serves as the controller for the Anemometer Calibration Unit developed under Dr. Spencer Zimmerman at Stony Brook University. The unit is designed to direct airflow via a nozzle at a specified pitch angle, yaw angle, and airflow rate, controllable via the included script. It is designed to work with genuine Phidgets™ stepper motors/controllers, Phidgets™ digital interface, and a DT9834-BNC Data Acquisition Unit. 
 
-## Project Structure
-.
-├── main.m # Entry point for full system execution
-├── core/ # Core low-level motor and DAQ functions
-│ ├── cleanup.m
-│ ├── cleanupInterface.m
-│ ├── getMotorPos.m
-│ ├── initialize.m
-│ ├── initializeDAQ.m
-│ ├── initializeInterface.m
-│ ├── moveRelative.m
-│ ├── moveToDegYaw.m
-│ ├── moveto.m
-│ ├── readPin.m
-│ ├── setAllNeutral.m
-│ ├── setVelocity.m
-│ ├── stepper_control.m
-│ ├── vel_toGateStep.m
-│ ├── voltToVel.m
-│ └── zeroMotor.m
-├── wrappers/ # High-level workflow control wrappers
-│ ├── cleanup_wrapper.m
-│ ├── init_wrapper.m
-│ ├── runConfigurationSet.m
-│ └── zeroMotor_wrapper.m
-├── data/ # Sensor calibration data
-│ └── PressureGateData.csv
-├── lib/ # Phidget-provided MATLAB libraries (external)
-
----
 
 ## How It Works
 
