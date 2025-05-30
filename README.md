@@ -90,6 +90,8 @@ All motors are disengaged and handles released using `cleanup_wrapper.m`, even i
 
 ## Usage
 
+For operation, you may modify the main.m script by changing the configuration set matrix (providing different pitch, yaw, and flow speeds), or my utilizing the functions from the table below.
+
 ## 📘 API Reference
 
 | Function | Description |
@@ -102,6 +104,7 @@ All motors are disengaged and handles released using `cleanup_wrapper.m`, even i
 | `initializeInterface(interfaceID)` | Initializes the Phidget InterfaceKit device. |
 | `moveRelative(motorHandle, delta)` | Moves the motor relative to its current position by delta steps. |
 | `moveToDegYaw(deg, yawHandle, yawZeroStep)` | Moves the yaw motor to a specified angle from zero. |
+| `moveToDegPitch(deg, pitchHandle, yawZeroStep)` | Moves the pitch motor to a specified angle from zero. |
 | `moveto(stepperHandle, targetPosition)` | Moves the motor to a specific absolute position. |
 | `readPin(interfaceHandle, pinIndex)` | Reads the digital input state (HIGH or LOW) of a pin. |
 | `setAllNeutral(yawHandle, pitchHandle, gateHandle, yawZeroStep, pitchZeroStep, gateZeroStep)` | Returns all motors to their neutral (resting) position. |
@@ -115,8 +118,11 @@ All motors are disengaged and handles released using `cleanup_wrapper.m`, even i
 | `runConfigurationSet(configSet, holdTime, ...)` | Executes a sequence of yaw, pitch, and velocity configurations. |
 | `zeroMotor_wrapper(...)` | Zeroes all motors (yaw, pitch, gate) using limit switches. |
 
+## Successful Operation Video Explanation
+
 ## Future Work
 
 - Implementation of airflow temperature control via PID control of Peltier Chips.
+- Use a object-oriented approach for cleaner syntax
 - Rewrite this in anything but MATLAB 
 
