@@ -63,7 +63,7 @@ To install and run this repository locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/moinakdas/anemometer-calibration-unit.git
+git clone https://github.com/moinakdas/anemometer-calibration-unit-controller.git
 cd anemometer-calibration-unit
 ```
 Then, launch MATLAB and run the main.m script
