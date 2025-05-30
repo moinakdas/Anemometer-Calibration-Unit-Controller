@@ -4,6 +4,9 @@
 
 This MATLAB library serves as the controller for the Anemometer Calibration Unit developed under Dr. Spencer Zimmerman at Stony Brook University. The unit is designed to direct airflow via a nozzle at a specified pitch angle, yaw angle, and airflow rate, controllable via the included script. It is designed to work with genuine Phidgets™ stepper motors/controllers, Phidgets™ digital interface, and a DT9834-BNC Data Acquisition Unit. 
 
+## Purpose
+
+Hot-wire and cold-wire Anemometers are utilized to obtain accurate readings of fluid flow speed and fluid flow angle. The Anemometer Calibration Unit is designed to test these anemometers by subjecting them to a specified fluid flow speed and fluid flow angle. By comparing the parameters produced by the calibration unit to the parameters recorded by the anemometer, it is possible to determine the accuracy of the anemometer (i.e do the anemometer readings match the given conditions?)
 
 ## Prerequisites
 
@@ -13,7 +16,7 @@ This MATLAB library serves as the controller for the Anemometer Calibration Unit
 
 3. Install the MATLAB Data Acquisition Toolbox from the Add-On Explorer page.
 
-4. Install the Data Acquisition Toolbox Support Package for National Instrucments
+4. Install the Data Acquisition Toolbox Support Package for National Instruments from the Add-On Explorer page.
    
 5. Download the *DT-Open Layers for .NET* from Digilent, available [here](https://digilent.com/reference/software/openlayers/start)
 
@@ -52,7 +55,6 @@ This MATLAB library serves as the controller for the Anemometer Calibration Unit
    Line 23:  AsynchronousIoChannel = matlabshared.asyncio.internal.Channel.empty();
    ```
 
-
 ## Installation
 
 To install and run this repository locally:
@@ -64,7 +66,29 @@ cd anemometer-calibration-unit
 ```
 Then, launch MATLAB and run the main.m script
 
-##
+## Pre-Operation
+Ensure
+- The DT9834-BNC DAQ is turned on and operational
+- The pitot tube is positioned at the end of the nozzle
+- The plenum chamber is plugged in, with both the fan and power switch at the ON position
+- The controlling laptop is plugged into the plenum chamber via the included usb c cable
+
+## Operation
+The following describes the workflow of the main script.
+
+### 1. Initialization
+All required motor and DAQ handles are created using `init_wrapper.m`. Connections are verified and printed to the console.
+
+### 2. Zeroing
+Each motor is zeroed using limit switches via `zeroMotor_wrapper.m`. Zero positions are stored for reference during operation.
+
+### 3. Configuration Execution
+`runConfigurationSet.m` iterates over a matrix of [Yaw, Pitch, Velocity] configurations. You may change these configurations as desired. Motors move to specified orientations and airflow velocity is achieved using PID-controlled gate positioning.
+
+### 4. Cleanup
+All motors are disengaged and handles released using `cleanup_wrapper.m`, even in the case of failure. Note that ctrl-Cing out of a running process will not disengage the motors properly, and will result in unexpected operation. In this case, restart MATLAB and clear cache.
+
+## Usage
 
 ## 📘 API Reference
 
@@ -91,22 +115,8 @@ Then, launch MATLAB and run the main.m script
 | `runConfigurationSet(configSet, holdTime, ...)` | Executes a sequence of yaw, pitch, and velocity configurations. |
 | `zeroMotor_wrapper(...)` | Zeroes all motors (yaw, pitch, gate) using limit switches. |
 
-## Operation
-
-### 1. Initialization
-All required motor and DAQ handles are created using `init_wrapper.m`. Connections are verified and printed to the console.
-
-### 2. Zeroing
-Each motor is zeroed using limit switches via `zeroMotor_wrapper.m`. Zero positions are stored for reference during operation.
-
-### 3. Configuration Execution
-`runConfigurationSet.m` iterates over a matrix of [Yaw, Pitch, Velocity] configurations. You may change these configurations as desired. Motors move to specified orientations and airflow velocity is achieved using PID-controlled gate positioning.
-
-### 4. Cleanup
-All motors are disengaged and handles released using `cleanup_wrapper.m`, even in the case of failure. Note that ctrl-Cing out of a running process will not disengage the motors properly, and will result in unexpected operation. In this case, restart MATLAB and clear cache.
-
 ## Future Work
 
 - Implementation of airflow temperature control via PID control of Peltier Chips.
-- Rewrite this in anything but MATLAB
+- Rewrite this in anything but MATLAB 
 
