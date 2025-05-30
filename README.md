@@ -5,7 +5,7 @@ This MATLAB library serves as the controller for the Anemometer Calibration Unit
 
 ## Prerequisites
 
-1. Ensure that the correct version of MATLAB is installed on your system. As of 2025, this code runs on MATLAB 2023b (Windows).
+1. Ensure that the correct version of MATLAB is installed on your system. As of May 2025, this code runs on MATLAB 2023b (Windows).
 
 2. Install the MATLAB Support for MiniGW-w64 C/C++ Compiler from the Add-On Explorer page.
 
@@ -13,15 +13,38 @@ This MATLAB library serves as the controller for the Anemometer Calibration Unit
 
 4. Install the Data Acquisition Toolbox Support Package for National Instrucments 
 
-5. Download the *Data Translation DAQ Adaptor for MATLAB®* from Digilent, available here:
+5. Download the *Data Translation DAQ Adaptor for MATLAB®* from Digilent, available [here](https://digilent.com/reference/software/start):
   
-    https://digilent.com/reference/software/start
-
     This will download a .mltb file, which you need to install using the MATLAB Add-On manager.
    
     After installation, this may be listed as *Data Acquisition Toolbox Support Package for Data Translation Hardware* by Digilent.
    
+6. Navigate to ```C:\Users\{username}\AppData\Roaming\MathWorks\MATLAB Add-Ons\Toolboxes\Data Acquisition Toolbox Support Package for Data Translation Hardware\+daq\+dt\+internal'```
 
+   In ```AsyncOLChannel.m``` modify the following lines:
+
+   ```
+   Line 1:  classdef AsyncOLChannel < matlabshared.asyncio.internal.Channel
+   ```
+   ```
+   Line 21:  obj@matlabshared.asyncio.internal.Channel(pluginInfo.devicePath, ...
+   ```
+   ```
+   Line 23:  'Options', channelOptions,...
+   ```
+   ```
+   Line 24:  'StreamLimits', streamLimits);
+   ```
+   ```
+   Line 35:  matlabshared.asyncio.internal.DataEventInfo(remainderIn) );
+   ```
+   ```
+   Line 51:  matlabshared.asyncio.internal.DataEventInfo(remainderOut) );
+   ```
+   
+
+   
+   
 ### 
 
 ## Installation
