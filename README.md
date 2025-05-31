@@ -122,6 +122,13 @@ For operation, you may modify the main.m script by changing the configuration se
 
 ## 🎥 [Watch Demo Video](utils/ACU_matlab_explanation.mp4)
 
+# Relevant Resources for Future Development
+
+- [Forum Discussion for Data Acquisition Toolbox modifications (step 7 in *Prerequisites & Dependencies*)](https://www.mathworks.com/matlabcentral/answers/1693530-error-when-trying-to-start-acquisition-from-data-translation-device)
+- [Data Translation DAQ Adaptor for MATLAB® Manual PDF](https://files.digilent.com/manuals/UMDAQAdaptorMATLAB.pdf)
+- [Phidget21 MATLAB documentation](https://www.phidgets.com/docs21/Language_-_MATLAB)
+
+
 # Future Work
 
 - Implementation of airflow temperature control via PID control of Peltier Chips.
