@@ -4,7 +4,7 @@
 
 This MATLAB library serves as the controller for the Anemometer Calibration Unit developed under Dr. Spencer Zimmerman at Stony Brook University. The unit is designed to direct airflow via a nozzle at a specified pitch angle, yaw angle, and airflow rate, controllable via the included script. It is designed to work with genuine Phidgets™ stepper motors/controllers, Phidgets™ digital interface, and a DT9834-BNC Data Acquisition Unit. 
 
-A GUI exists for this repository, it can be found [here](https://github.com/moinakdas/Python-Anemometer-Callibration-Unit-Controller): 
+A GUI exists for this repository, it can be found [here](https://github.com/moinakdas/Python-Anemometer-Callibration-Unit-Controller)
 
 ## Purpose
 
