@@ -107,7 +107,7 @@ For operation, you may modify the main.m script by changing the configuration se
 | `moveRelative(motorHandle, delta)` | Moves the motor relative to its current position by delta steps. |
 | `moveToDegYaw(deg, yawHandle, yawZeroStep)` | Moves the yaw motor to a specified angle from zero. |
 | `moveToDegPitch(deg, pitchHandle, yawZeroStep)` | Moves the pitch motor to a specified angle from zero. |
-| `moveto(stepperHandle, targetPosition)` | Moves the motor to a specific absolute position. |
+| `moveto(stepperHandle, targetPosition)` | Moves the motor to a specific absolute position. ⚠️ **WARNING: This function does NOT account for physical limits or the motor's neutral position and could potentially damage the motor if used improperly.** Instead use moveToDegPitch() and moveToDegYaw() to move the motors. |
 | `readPin(interfaceHandle, pinIndex)` | Reads the digital input state (HIGH or LOW) of a pin. |
 | `setAllNeutral(yawHandle, pitchHandle, gateHandle, yawZeroStep, pitchZeroStep, gateZeroStep)` | Returns all motors to their neutral (resting) position. |
 | `setVelocity(vel, gateHandle, daqHandle, gateZeroStep)` | Uses PID to adjust the gate to achieve target airflow velocity. |
