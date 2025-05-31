@@ -76,25 +76,88 @@ Ensure
 - The controlling laptop is plugged into the plenum chamber via the included usb c cable
 
 # Operation
-The following describes the workflow of the main script.
 
-## 1. Initialization
-All required motor and DAQ handles are created using `init_wrapper.m`. Connections are verified and printed to the console.
+### 1. Initialization
 
-## 2. Zeroing
-Each motor is zeroed using limit switches via `zeroMotor_wrapper.m`. Zero positions are stored for reference during operation.
+The program begins by initializing all connected components using `init_wrapper.m`. Each device prints its connection status to the terminal:
 
-## 3. Configuration Execution
-`runConfigurationSet.m` iterates over a matrix of [Yaw, Pitch, Velocity] configurations. You may change these configurations as desired. Motors move to specified orientations and airflow velocity is achieved using PID-controlled gate positioning.
+```
+Interface initialization SUCCESS!
+Yaw motor initialization SUCCESS!
+Pitch motor initialization SUCCESS!
+Gate motor initialization SUCCESS!
+Data Acquisition initialization SUCCESS!
 
-## 4. Cleanup
-All motors are disengaged and handles released using `cleanup_wrapper.m`, even in the case of failure. Note that ctrl-Cing out of a running process will not disengage the motors properly, and will result in unexpected operation. In this case, restart MATLAB and clear cache.
+[INIT SUCCESS] All components initialized successfully, proceeding to zero motors
+```
+
+### 2. Zeroing
+
+Each stepper motor is zeroed using limit switches via `zeroMotor_wrapper.m`. This ensures all motors start from a known reference. The final positions (in steps) are stored and used for future movement:
+
+```
+Pitch motor zeroed at 30000
+Yaw motor zeroed at 47111
+Gate motor zeroed at 17114
+
+[LOCALIZATION SUCCESS] All motors set to neutral position, ready to execute set
+```
+
+
+### 3. Configuration Execution
+
+Motor commands are executed through a configuration matrix in `runConfigurationSet.m`, where each row defines a `[Yaw, Pitch, Velocity]` setting. You can modify this matrix directly in `main.m`, or save it to a csv and import it.
+
+For each configuration:
+- Motors move to the specified yaw and pitch angles.
+- Gate position is adjusted using PID control to match the desired airflow velocity.
+- Live feedback of the PID loop is printed per iteration.
+
+```
+[CONFIG #1] =======================
+Yaw motor reached 0 deg
+Pitch motor reached 0 deg
+Target Velocity: 18
+1 | Current = 17.84 | Error = 0.16
+2 | Current = 17.80 | Error = 0.20
+3 | Current = 17.76 | Error = 0.24
+4 | Current = 17.94 | Error = 0.06
+5 | Current = 17.95 | Error = 0.05
+Velocity reached 17.95m/s
+[CONFIG #1 COMPLETE] Holding for 15 seconds...
+
+[CONFIG #2] =======================
+Yaw motor reached 0 deg
+Pitch motor reached 0 deg
+Target Velocity: 10
+1 | Current = 9.89 | Error = 0.11
+2 | Current = 9.86 | Error = 0.14
+3 | Current = 9.95 | Error = 0.05
+4 | Current = 10.01 | Error = -0.01
+Velocity reached 10.01m/s
+[CONFIG #2 COMPLETE] Holding for 15 seconds...
+
+============ [ALL CONFIGS COMPLETE] ============
+```
+
+### 4. Cleanup
+
+After configuration execution, all motors and devices are safely disengaged via `cleanup_wrapper.m`. This prevents residual current holding torque or hardware damage:
+
+```
+Yaw motor disengagement SUCCESS!
+Pitch motor disengagement SUCCESS!
+Gate motor disengagement SUCCESS!
+Interface disengagement SUCCESS!
+DAQ disengagement SUCCESS!
+```
+> ⚠️ **Warning**: Interrupting the program (e.g., Ctrl-C) skips cleanup and leaves motors engaged. If this occurs, restart MATLAB and clear cached variables to reinitialize safely.
 
 # Usage
 
 For operation, you may modify the main.m script by changing the configuration set matrix (providing different pitch, yaw, and flow speeds), or my utilizing the functions from the table below.
 
-## 📘 API Reference
+## API Reference
 
 | Function | Description |
 |----------|-------------|
